@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Expense Tracker</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <h1>💰 Expense Tracker</h1>
+
+    <!-- Form -->
+    <form action="/add" method="POST">
+        <input type="number" name="amount" placeholder="Amount" required>
+        <input type="text" name="category" placeholder="Category" required>
+        <input type="date" name="date" required>
+        <button type="submit">Add Expense</button>
+    </form>
+
+    <!-- Clear All Button -->
+    <a href="/clear">
+        <button style="background:red; margin:10px;">Clear All</button>
+    </a>
+
+    <h2>All Expenses</h2>
+
+    <table>
+        <tr>
+            <th>Amount</th>
+            <th>Category</th>
+            <th>Date</th>
+            <th>Action</th>
+        </tr>
+
+        {% for exp in expenses %}
+        <tr>
+            <td>{{ exp.amount }}</td>
+            <td>{{ exp.category }}</td>
+            <td>{{ exp.date }}</td>
+            <td>
+                <a href="/delete/{{ loop.index0 }}">
+                    <button style="background:red;">Delete</button>
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <h3>Total: {{ total }}</h3>
+
+</body>
+</html>
